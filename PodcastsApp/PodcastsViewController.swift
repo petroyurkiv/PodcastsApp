@@ -17,13 +17,14 @@ class PodcastsViewController: UIViewController, ViewControllerDelegate {
         text = data
     }
     
-    var text: String?
+    private var text: String?
     
-    @IBOutlet weak var textLabel: UILabel!
+    @IBOutlet private weak var textLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        title = "Podcasts"
+        view.backgroundColor = .systemBackground
         textLabel.textColor = .red
         textLabel.text = text
     }

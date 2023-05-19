@@ -13,9 +13,9 @@ protocol ViewControllerDelegate: UIViewController {
 
 class GenreViewController: UITableViewController {
     
-    weak var delegate: ViewControllerDelegate?
+    private weak var delegate: ViewControllerDelegate?
     
-    func goToSecondScreen() {
+    private func goToSecondScreen() {
         let screen = (storyboard?.instantiateViewController(withIdentifier: "PodcastsViewController")) as! PodcastsViewController
         delegate = screen
         guard let genreID = genreID else {
@@ -25,36 +25,23 @@ class GenreViewController: UITableViewController {
         self.navigationController?.pushViewController(screen, animated: true)
     }
     
-    var models: [Genre] = []
-    var genreID: Int?
+    private var models: [Genre] = []
+    private var genreID: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Genres"
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-        getGenres()
+        fetchGenres()
     }
-
-    private func getGenres() {
-        var request = URLRequest(url: URL(string: "https://listen-api-test.listennotes.com/api/v2/genress")!)
-        request.httpMethod = "GET"
-        let session = URLSession(configuration: .default)
-        
-        let task = session.dataTask(with: request) { data, response, error in
-            guard let data = data else { return }
-            
-            do {
-                let result = try JSONDecoder().decode(Genres.self, from: data)
-                print("\(result)")
-                self.models = result.genres
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Error: \(error)")
+    
+    private func fetchGenres() {
+        GenresNetworkManager.getGenres { [self] result in
+            models = result
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         }
-        
-        task.resume()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
