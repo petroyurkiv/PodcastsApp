@@ -7,26 +7,47 @@
 
 import UIKit
 
-class PodcastsViewController: UIViewController, ViewControllerDelegate {
+class PodcastsViewController: UITableViewController, ViewControllerDelegate {
     
-    func passData(data: String?) {
-        guard let data = data else {
-            text = "Error"
-            return
-        }
-        text = data
+    func passData(data: Int?) {
+        guard let data = data else { return }
+        genreID = data
     }
     
-    private var text: String?
-    
-    @IBOutlet private weak var textLabel: UILabel!
+    var genreID: Int?
+    var models: [Podcast] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Podcasts"
         view.backgroundColor = .systemBackground
-        textLabel.textColor = .red
-        textLabel.text = text
+        tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
+        fetchPodcasts()
     }
-
+    
+    private func fetchPodcasts() {
+        guard let genreID = genreID else { return }
+        PodcastsNetworkManager.getPodcasts(genreID: genreID) { [self] result in
+            models = result
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PodcastsTableViewCell.identifier, for: indexPath) as! PodcastsTableViewCell
+        let models = models[indexPath.row]
+        cell.title.text = models.title
+        cell.subtitle.text = models.description
+        return cell
+    }
 }

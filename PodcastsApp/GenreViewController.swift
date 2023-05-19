@@ -7,8 +7,8 @@
 
 import UIKit
 
-protocol ViewControllerDelegate: UIViewController {
-    func passData(data: String?)
+protocol ViewControllerDelegate: UITableViewController {
+    func passData(data: Int?)
 }
 
 class GenreViewController: UITableViewController {
@@ -21,7 +21,7 @@ class GenreViewController: UITableViewController {
         guard let genreID = genreID else {
             return
         }
-        delegate?.passData(data: String(genreID))
+        delegate?.passData(data: genreID)
         self.navigationController?.pushViewController(screen, animated: true)
     }
     
@@ -64,6 +64,5 @@ class GenreViewController: UITableViewController {
         genreID = models.id
         goToSecondScreen()
     }
-
 }
 
