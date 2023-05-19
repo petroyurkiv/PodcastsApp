@@ -7,25 +7,26 @@
 
 import UIKit
 
-struct Genres: Decodable {
-    let genres: [Genre]
+protocol ViewControllerDelegate: UIViewController {
+    func passData(data: String?)
 }
 
-struct Genre: Decodable {
-    let id: Int
-    let name: String
-    let parentID: Int
+class GenreViewController: UITableViewController {
     
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case parentID = "parent_id"
+    weak var delegate: ViewControllerDelegate?
+    
+    func goToSecondScreen() {
+        let screen = (storyboard?.instantiateViewController(withIdentifier: "PodcastsViewController")) as! PodcastsViewController
+        delegate = screen
+        guard let genreID = genreID else {
+            return
+        }
+        delegate?.passData(data: String(genreID))
+        self.navigationController?.pushViewController(screen, animated: true)
     }
-}
-
-class ViewController: UITableViewController {
     
     var models: [Genre] = []
+    var genreID: Int?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,7 @@ class ViewController: UITableViewController {
     }
 
     private func getGenres() {
-        var request = URLRequest(url: URL(string: "https://listen-api-test.listennotes.com/api/v2/genres")!)
+        var request = URLRequest(url: URL(string: "https://listen-api-test.listennotes.com/api/v2/genress")!)
         request.httpMethod = "GET"
         let session = URLSession(configuration: .default)
         
@@ -69,6 +70,12 @@ class ViewController: UITableViewController {
         let models = models[indexPath.row]
         cell.textLabel?.text = models.name
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let models = models[indexPath.row]
+        genreID = models.id
+        goToSecondScreen()
     }
 
 }
