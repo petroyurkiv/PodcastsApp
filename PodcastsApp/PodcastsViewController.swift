@@ -27,7 +27,7 @@ class PodcastsViewController: UITableViewController, ViewControllerDelegate {
     
     private func fetchPodcasts() {
         guard let genreID = genreID else { return }
-        PodcastsNetworkManager.getPodcasts(genreID: genreID) { [self] result in
+        PodcastsNetworkManager.getPodcasts(genreID: String(genreID)) { [self] result in
             models = result
             DispatchQueue.main.async {
                 tableView.reloadData()
