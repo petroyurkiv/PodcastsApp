@@ -9,13 +9,26 @@ import UIKit
 
 class PodcastsViewController: UITableViewController, ViewControllerDelegate {
     
-    func passData(data: Int?) {
+    func passData(data: String?) {
         guard let data = data else { return }
         genreID = data
     }
     
-    var genreID: Int?
+    private weak var delegate: ViewControllerDelegate?
+    
+    private func goToSecondScreen() {
+        let screen = (storyboard?.instantiateViewController(withIdentifier: "EpisodesViewController")) as! EpisodesViewController
+        delegate = screen
+        guard let podcastID = podcastID else {
+            return
+        }
+        delegate?.passData(data: podcastID)
+        self.navigationController?.pushViewController(screen, animated: true)
+    }
+    
+    var genreID: String?
     var models: [Podcast] = []
+    var podcastID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,10 +40,10 @@ class PodcastsViewController: UITableViewController, ViewControllerDelegate {
     
     private func fetchPodcasts() {
         guard let genreID = genreID else { return }
-        PodcastsNetworkManager.getPodcasts(genreID: String(genreID)) { [self] result in
+        PodcastsNetworkManager.getPodcasts(podcastID: String(genreID)) { [self] result in
             models = result
             DispatchQueue.main.async {
-                tableView.reloadData()
+                self.tableView.reloadData()
             }
         }
     }
@@ -49,5 +62,11 @@ class PodcastsViewController: UITableViewController, ViewControllerDelegate {
         cell.title.text = models.title
         cell.subtitle.text = models.description
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let models = models[indexPath.row]
+        podcastID = models.id
+        goToSecondScreen()
     }
 }

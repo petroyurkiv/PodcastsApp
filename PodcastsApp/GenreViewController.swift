@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ViewControllerDelegate: UITableViewController {
-    func passData(data: Int?)
+    func passData(data: String?)
 }
 
 class GenreViewController: UITableViewController {
@@ -21,7 +21,7 @@ class GenreViewController: UITableViewController {
         guard let genreID = genreID else {
             return
         }
-        delegate?.passData(data: genreID)
+        delegate?.passData(data: String(genreID))
         self.navigationController?.pushViewController(screen, animated: true)
     }
     

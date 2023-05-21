@@ -8,10 +8,10 @@
 import Foundation
 
 class PodcastsNetworkManager {
-    static func getPodcasts(genreID: String, completion: @escaping(([Podcast]) -> Void)) {
+    static func getPodcasts(podcastID: String, completion: @escaping(([Podcast]) -> Void)) {
         var components = URLComponents(string: "https://listen-api-test.listennotes.com/api/v2/best_podcasts")!
         components.queryItems = [
-            URLQueryItem(name: "genre_id", value: genreID)
+            URLQueryItem(name: "podcast_id", value: podcastID)
         ]
         
         var request = URLRequest(url: components.url!)
