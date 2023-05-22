@@ -12,7 +12,7 @@ final class GenreViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Genres"
+        title = R.string.texts.podcastAppGenreVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         fetchGenres()
@@ -53,4 +53,3 @@ final class GenreViewController: UITableViewController {
         self.navigationController?.pushViewController(screen, animated: true)
     }
 }
-

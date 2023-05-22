@@ -10,5 +10,3 @@ import Foundation
 struct Podcasts: Decodable {
     let podcasts: [Podcast]
 }
-
-

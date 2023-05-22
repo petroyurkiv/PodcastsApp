@@ -13,7 +13,7 @@ final class EpisodesViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Episodes"
+        title = R.string.texts.podcastAppEpisodesVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         fetchEpisodes()

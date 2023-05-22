@@ -14,7 +14,7 @@ final class PodcastsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Podcasts"
+        title = R.string.texts.podcastAppPodcastsVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
         fetchPodcasts()

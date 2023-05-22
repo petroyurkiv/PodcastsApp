@@ -10,4 +10,3 @@ import Foundation
 struct Genres: Decodable {
     let genres: [Genre]
 }
-
