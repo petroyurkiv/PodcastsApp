@@ -1,15 +1,11 @@
 //
-//  Genres.swift
+//  Genre.swift
 //  PodcastsApp
 //
-//  Created by Petro on 19.05.2023.
+//  Created by Petro on 22.05.2023.
 //
 
 import Foundation
-
-struct Genres: Decodable {
-    let genres: [Genre]
-}
 
 struct Genre: Decodable {
     let id: Int

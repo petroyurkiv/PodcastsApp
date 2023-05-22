@@ -7,11 +7,11 @@
 
 import Foundation
 
-class PodcastsNetworkManager {
-    static func getPodcasts(podcastID: String, completion: @escaping(([Podcast]) -> Void)) {
+enum PodcastsNetworkManager {
+    static func getPodcasts(genreID: String, completion: @escaping(([Podcast]) -> Void)) {
         var components = URLComponents(string: "https://listen-api-test.listennotes.com/api/v2/best_podcasts")!
         components.queryItems = [
-            URLQueryItem(name: "podcast_id", value: podcastID)
+            URLQueryItem(name: "podcast_id", value: genreID)
         ]
         
         var request = URLRequest(url: components.url!)

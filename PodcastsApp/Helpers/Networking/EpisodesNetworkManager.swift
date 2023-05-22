@@ -7,10 +7,10 @@
 
 import Foundation
 
-class EpisodesNetworkManager {
-    static func getEpisodes(episodeID: String, completion: @escaping(([Episodes]) -> Void)) {
-        let url = URL(string: "https://listen-api-test.listennotes.com/api/v2/episodes")
-        let newUrl = (url?.appendingPathComponent((episodeID), isDirectory: false))
+enum EpisodesNetworkManager {
+    static func getEpisodes(podcastID: String, completion: @escaping(([Episode]) -> Void)) {
+        let url = URL(string: "https://listen-api-test.listennotes.com/api/v2/podcasts")
+        let newUrl = (url?.appendingPathComponent((podcastID), isDirectory: false))
         
         var request = URLRequest(url: newUrl!)
         request.httpMethod = "GET"
@@ -22,7 +22,7 @@ class EpisodesNetworkManager {
             
             do {
                 let result = try JSONDecoder().decode(Episodes.self, from: data)
-                completion([result])
+                completion(result.episodes)
             } catch {
                 print("Error: \(error)")
             }

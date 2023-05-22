@@ -11,8 +11,4 @@ struct Podcasts: Decodable {
     let podcasts: [Podcast]
 }
 
-struct Podcast: Decodable {
-    let id: String
-    let title: String
-    let description: String
-}
+

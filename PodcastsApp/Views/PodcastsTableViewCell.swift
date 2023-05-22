@@ -7,10 +7,7 @@
 
 import UIKit
 
-class PodcastsTableViewCell: UITableViewCell {
-    
-    static let identifier = "PodcastsTableViewCell"
-    
+final class PodcastsTableViewCell: UITableViewCell {
     let title = UILabel()
     let subtitle = UILabel()
 
