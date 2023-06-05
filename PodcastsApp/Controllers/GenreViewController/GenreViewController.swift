@@ -18,6 +18,7 @@ final class GenreViewController: UITableViewController {
         title = R.string.texts.podcastAppGenreVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
+        presenter.view = self
         presenter.fetchGenres()
     }
     

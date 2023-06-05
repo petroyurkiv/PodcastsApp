@@ -8,6 +8,8 @@
 import UIKit
 
 final class EpisodesViewController: UITableViewController {
+    let presenter = EpisodesViewPresenter()
+    
     var podcast: Podcast?
     private var models: [Episode] = []
     
@@ -16,7 +18,8 @@ final class EpisodesViewController: UITableViewController {
         title = R.string.texts.podcastAppEpisodesVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
-        fetchEpisodes()
+        presenter.view = self
+        presenter.fetchEpisodes()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -33,8 +36,11 @@ final class EpisodesViewController: UITableViewController {
         cell.textLabel?.text = episode.title
         return cell
     }
+}
+
+extension EpisodesViewController: EpisodesViewProtocool {
     
-    private func fetchEpisodes() {
+    func fetchEpisodes() {
         guard let podcastID = podcast?.id else { return }
         EpisodesNetworkManager.getEpisodes(podcastID: podcastID) { [weak self] result in
             self?.models = result
@@ -43,5 +49,4 @@ final class EpisodesViewController: UITableViewController {
             }
         }
     }
-
 }

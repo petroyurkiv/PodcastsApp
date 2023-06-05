@@ -19,6 +19,7 @@ final class PodcastsViewController: UITableViewController {
         title = R.string.texts.podcastAppPodcastsVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
+        presenter.view = self
         presenter.fetchPodcasts()
     }
     
