@@ -8,6 +8,9 @@
 import UIKit
 
 final class GenreViewController: UITableViewController {
+    
+    let presenter = GenreViewPresenter()
+    
     private var models: [Genre] = []
 
     override func viewDidLoad() {
@@ -15,7 +18,7 @@ final class GenreViewController: UITableViewController {
         title = R.string.texts.podcastAppGenreVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
-        fetchGenres()
+        presenter.fetchGenres()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -35,10 +38,13 @@ final class GenreViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let genre = models[indexPath.row]
-        goToSecondScreen(genre: genre)
+        presenter.goToSecondScreen(genre: genre)
     }
+}
+
+extension GenreViewController: GenreViewProtocool {
     
-    private func fetchGenres() {
+    func fetchGenres() {
         GenresNetworkManager.getGenres { [weak self] result in
             self?.models = result
             DispatchQueue.main.async {
@@ -47,7 +53,7 @@ final class GenreViewController: UITableViewController {
         }
     }
     
-    private func goToSecondScreen(genre: Genre) {
+    func goToSecondScreen(genre: Genre) {
         let screen = PodcastsViewController()
         screen.genre = genre
         self.navigationController?.pushViewController(screen, animated: true)

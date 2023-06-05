@@ -23,6 +23,8 @@
 		AB56CEE02A1A003400E9C7A9 /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB56CEDF2A1A003400E9C7A9 /* EpisodesViewController.swift */; };
 		AB575FEE2A1B8B2B00A9B3B6 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB575FED2A1B8B2B00A9B3B6 /* R.generated.swift */; };
 		AB575FF22A1B8D2700A9B3B6 /* Texts.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB575FF42A1B8D2700A9B3B6 /* Texts.strings */; };
+		ABA97D922A2E13C300CC60CB /* GenreViewProtocool.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA97D912A2E13C300CC60CB /* GenreViewProtocool.swift */; };
+		ABA97D942A2E13E600CC60CB /* GenreViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA97D932A2E13E600CC60CB /* GenreViewPresenter.swift */; };
 		ABE151DB2A1B6FDE008ED111 /* Podcast.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE151DA2A1B6FDE008ED111 /* Podcast.swift */; };
 		ABE151DE2A1B7007008ED111 /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE151DD2A1B7007008ED111 /* Episode.swift */; };
 		ABE151E52A1B73FA008ED111 /* Genres.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABE151E42A1B73FA008ED111 /* Genres.swift */; };
@@ -55,6 +57,8 @@
 		AB575FED2A1B8B2B00A9B3B6 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		AB575FF32A1B8D2700A9B3B6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Texts.strings; sourceTree = "<group>"; };
 		AB575FF52A1B8D2900A9B3B6 /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Texts.strings; sourceTree = "<group>"; };
+		ABA97D912A2E13C300CC60CB /* GenreViewProtocool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewProtocool.swift; sourceTree = "<group>"; };
+		ABA97D932A2E13E600CC60CB /* GenreViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreViewPresenter.swift; sourceTree = "<group>"; };
 		ABE151DA2A1B6FDE008ED111 /* Podcast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Podcast.swift; sourceTree = "<group>"; };
 		ABE151DD2A1B7007008ED111 /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		ABE151E42A1B73FA008ED111 /* Genres.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genres.swift; sourceTree = "<group>"; };
@@ -157,6 +161,16 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		ABA97D952A2E141A00CC60CB /* GenreViewController */ = {
+			isa = PBXGroup;
+			children = (
+				ABA97D912A2E13C300CC60CB /* GenreViewProtocool.swift */,
+				ABA97D932A2E13E600CC60CB /* GenreViewPresenter.swift */,
+				AB2C304D2A1630D500154700 /* GenreViewController.swift */,
+			);
+			path = GenreViewController;
+			sourceTree = "<group>";
+		};
 		ABE151DC2A1B6FEB008ED111 /* Podcasts */ = {
 			isa = PBXGroup;
 			children = (
@@ -195,7 +209,7 @@
 		ABE151EC2A1B8533008ED111 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				AB2C304D2A1630D500154700 /* GenreViewController.swift */,
+				ABA97D952A2E141A00CC60CB /* GenreViewController */,
 				AB2C305D2A1780F100154700 /* PodcastsViewController.swift */,
 				AB56CEDF2A1A003400E9C7A9 /* EpisodesViewController.swift */,
 			);
@@ -368,6 +382,7 @@
 			files = (
 				AB2C304E2A1630D500154700 /* GenreViewController.swift in Sources */,
 				AB2C30692A17BD6000154700 /* PodcastsNetworkManager.swift in Sources */,
+				ABA97D942A2E13E600CC60CB /* GenreViewPresenter.swift in Sources */,
 				AB2C306B2A17BD9500154700 /* Podcasts.swift in Sources */,
 				AB2C304A2A1630D500154700 /* AppDelegate.swift in Sources */,
 				AB2C304C2A1630D500154700 /* SceneDelegate.swift in Sources */,
@@ -376,6 +391,7 @@
 				ABE151DB2A1B6FDE008ED111 /* Podcast.swift in Sources */,
 				AB575FEE2A1B8B2B00A9B3B6 /* R.generated.swift in Sources */,
 				AB2C30642A17B4F100154700 /* GenresNetworkManager.swift in Sources */,
+				ABA97D922A2E13C300CC60CB /* GenreViewProtocool.swift in Sources */,
 				ABE151E72A1B7407008ED111 /* Genre.swift in Sources */,
 				ABE151E52A1B73FA008ED111 /* Genres.swift in Sources */,
 				AB2C305E2A1780F100154700 /* PodcastsViewController.swift in Sources */,
