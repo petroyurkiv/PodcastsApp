@@ -8,6 +8,8 @@
 import UIKit
 
 final class PodcastsViewController: UITableViewController {
+    let presenter = PodcastsViewPresenter()
+    
     var genre: Genre?
     private var models: [Podcast] = []
     private var podcast: Podcast?
@@ -17,7 +19,7 @@ final class PodcastsViewController: UITableViewController {
         title = R.string.texts.podcastAppPodcastsVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
-        fetchPodcasts()
+        presenter.fetchPodcasts()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,10 +40,13 @@ final class PodcastsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let podcast = models[indexPath.row]
-        goToSecondScreen(podcast: podcast)
+        presenter.goToSecondScreen(podcast: podcast)
     }
+}
+
+extension PodcastsViewController: PodcastsViewProtocool {
     
-    private func fetchPodcasts() {
+    func fetchPodcasts() {
         guard let genreID = genre?.id else { return }
         PodcastsNetworkManager.getPodcasts(genreID: String(genreID)) { [weak self] result in
             self?.models = result
@@ -51,7 +56,7 @@ final class PodcastsViewController: UITableViewController {
         }
     }
     
-    private func goToSecondScreen(podcast: Podcast) {
+    func goToSecondScreen(podcast: Podcast) {
         let screen = EpisodesViewController()
         screen.podcast = podcast
         self.navigationController?.pushViewController(screen, animated: true)
