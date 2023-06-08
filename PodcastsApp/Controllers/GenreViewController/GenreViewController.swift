@@ -8,7 +8,6 @@
 import UIKit
 
 final class GenreViewController: UITableViewController {
-    
     let presenter = GenreViewPresenter()
     
     private var models: [Genre] = []
