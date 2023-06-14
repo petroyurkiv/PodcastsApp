@@ -11,10 +11,10 @@ class GenreViewPresenter {
     weak var view: GenreViewProtocool?
     
     func fetchGenres() {
-        view?.fetchGenres()
-    }
-    
-    func goToSecondScreen(genre: Genre) {
-        view?.goToSecondScreen(genre: genre)
+        GenresNetworkManager.getGenres { [weak self] result in
+            DispatchQueue.main.async {
+                self?.view?.display(result)
+            }
+        }
     }
 }

@@ -38,24 +38,16 @@ final class GenreViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let genre = models[indexPath.row]
-        presenter.goToSecondScreen(genre: genre)
+        let screen = PodcastsViewController()
+        screen.genre = genre
+        self.navigationController?.pushViewController(screen, animated: true)
     }
 }
 
 extension GenreViewController: GenreViewProtocool {
     
-    func fetchGenres() {
-        GenresNetworkManager.getGenres { [weak self] result in
-            self?.models = result
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
-    func goToSecondScreen(genre: Genre) {
-        let screen = PodcastsViewController()
-        screen.genre = genre
-        self.navigationController?.pushViewController(screen, animated: true)
+    func display(_ genres: [Genre]) {
+        models = genres
+        tableView.reloadData()
     }
 }

@@ -8,6 +8,5 @@
 import Foundation
 
 protocol GenreViewProtocool: AnyObject {
-    func fetchGenres()
-    func goToSecondScreen(genre: Genre)
+    func display(_ genres: [Genre])
 }
