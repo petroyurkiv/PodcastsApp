@@ -8,6 +8,5 @@
 import Foundation
 
 protocol PodcastsViewProtocool: AnyObject {
-    func fetchPodcasts()
-    func goToSecondScreen(podcast: Podcast)
+    func display(_ podcasts: [Podcast])
 }

@@ -8,13 +8,13 @@
 import Foundation
 
 class PodcastsViewPresenter {
-    weak var view: PodcastsViewController?
+    weak var view: PodcastsViewProtocool?
     
-    func fetchPodcasts() {
-        view?.fetchPodcasts()
-    }
-    
-    func goToSecondScreen(podcast: Podcast) {
-        view?.goToSecondScreen(podcast: podcast)
+    func fetchPodcasts(genreID: String) {
+        PodcastsNetworkManager.getPodcasts(genreID: genreID) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.view?.display(result)
+            }
+        }
     }
 }

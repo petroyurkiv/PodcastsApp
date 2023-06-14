@@ -20,7 +20,7 @@ final class PodcastsViewController: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
         presenter.view = self
-        presenter.fetchPodcasts()
+        presenter.fetchPodcasts(genreID: (String(describing: genre?.id)))
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,25 +41,16 @@ final class PodcastsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let podcast = models[indexPath.row]
-        presenter.goToSecondScreen(podcast: podcast)
+        let screen = EpisodesViewController()
+        screen.podcast = podcast
+        self.navigationController?.pushViewController(screen, animated: true)
     }
 }
 
 extension PodcastsViewController: PodcastsViewProtocool {
     
-    func fetchPodcasts() {
-        guard let genreID = genre?.id else { return }
-        PodcastsNetworkManager.getPodcasts(genreID: String(genreID)) { [weak self] result in
-            self?.models = result
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
-    func goToSecondScreen(podcast: Podcast) {
-        let screen = EpisodesViewController()
-        screen.podcast = podcast
-        self.navigationController?.pushViewController(screen, animated: true)
+    func display(_ podcasts: [Podcast]) {
+        models = podcasts
+        tableView.reloadData()
     }
 }
