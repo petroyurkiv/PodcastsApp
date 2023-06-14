@@ -9,7 +9,6 @@ import UIKit
 
 final class GenreViewController: UITableViewController {
     let presenter = GenreViewPresenter()
-    
     private var models: [Genre] = []
 
     override func viewDidLoad() {
@@ -45,7 +44,6 @@ final class GenreViewController: UITableViewController {
 }
 
 extension GenreViewController: GenreViewProtocool {
-    
     func display(_ genres: [Genre]) {
         models = genres
         tableView.reloadData()

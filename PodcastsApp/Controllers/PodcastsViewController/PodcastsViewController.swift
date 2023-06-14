@@ -9,7 +9,6 @@ import UIKit
 
 final class PodcastsViewController: UITableViewController {
     let presenter = PodcastsViewPresenter()
-    
     var genre: Genre?
     private var models: [Podcast] = []
     private var podcast: Podcast?
@@ -48,7 +47,6 @@ final class PodcastsViewController: UITableViewController {
 }
 
 extension PodcastsViewController: PodcastsViewProtocool {
-    
     func display(_ podcasts: [Podcast]) {
         models = podcasts
         tableView.reloadData()

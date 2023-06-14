@@ -8,5 +8,5 @@
 import Foundation
 
 protocol EpisodesViewProtocool: AnyObject {
-    func fetchEpisodes()
+    func display(_ episodes: [Episode])
 }

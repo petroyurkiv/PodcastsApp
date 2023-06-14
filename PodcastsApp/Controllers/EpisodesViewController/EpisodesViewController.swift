@@ -9,7 +9,6 @@ import UIKit
 
 final class EpisodesViewController: UITableViewController {
     let presenter = EpisodesViewPresenter()
-    
     var podcast: Podcast?
     private var models: [Episode] = []
     
@@ -19,7 +18,7 @@ final class EpisodesViewController: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         presenter.view = self
-        presenter.fetchEpisodes()
+        presenter.fetchEpisodes(podcastID: (String(describing: podcast?.id)))
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -39,14 +38,8 @@ final class EpisodesViewController: UITableViewController {
 }
 
 extension EpisodesViewController: EpisodesViewProtocool {
-    
-    func fetchEpisodes() {
-        guard let podcastID = podcast?.id else { return }
-        EpisodesNetworkManager.getEpisodes(podcastID: podcastID) { [weak self] result in
-            self?.models = result
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
+    func display(_ episodes: [Episode]) {
+        models = episodes
+        tableView.reloadData()
     }
 }

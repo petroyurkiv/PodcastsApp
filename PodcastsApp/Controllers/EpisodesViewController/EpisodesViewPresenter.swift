@@ -10,7 +10,11 @@ import Foundation
 class EpisodesViewPresenter {
     weak var view: EpisodesViewProtocool?
     
-    func fetchEpisodes() {
-        view?.fetchEpisodes()
+    func fetchEpisodes(podcastID: String) {
+        EpisodesNetworkManager.getEpisodes(podcastID: podcastID) { [weak self] result in
+            DispatchQueue.main.async {
+                self?.view?.display(result)
+            }
+        }
     }
 }
