@@ -7,6 +7,15 @@
 
 import UIKit
 
+class PodcastComposer {
+     
+    func bulid(genreID: String) -> UIViewController {
+        let presenter = PodcastsViewPresenter(genreID: genreID)
+        let controller = PodcastsViewController(presenter: presenter)
+        return controller
+    }
+}
+
 final class GenreViewController: UITableViewController {
     let presenter = GenreViewPresenter()
     private var models: [Genre] = []
@@ -37,8 +46,7 @@ final class GenreViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let genre = models[indexPath.row]
-        let screen = PodcastsViewController()
-        screen.genre = genre
+        let screen = PodcastComposer().bulid(genreID: (String(describing: genre.id)))
         self.navigationController?.pushViewController(screen, animated: true)
     }
 }

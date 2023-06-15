@@ -8,10 +8,18 @@
 import UIKit
 
 final class PodcastsViewController: UITableViewController {
-    let presenter = PodcastsViewPresenter()
-    var genre: Genre?
+    let presenter: PodcastsViewPresenter
     private var models: [Podcast] = []
     private var podcast: Podcast?
+    
+    init(presenter: PodcastsViewPresenter) {
+        self.presenter = presenter
+        super.init(style: .plain)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +27,7 @@ final class PodcastsViewController: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
         presenter.view = self
-        presenter.fetchPodcasts(genreID: (String(describing: genre?.id)))
+        presenter.fetchPodcasts()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
