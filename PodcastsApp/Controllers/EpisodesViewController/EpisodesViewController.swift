@@ -8,9 +8,17 @@
 import UIKit
 
 final class EpisodesViewController: UITableViewController {
-    let presenter = EpisodesViewPresenter()
-    var podcast: Podcast?
+    let presenter: EpisodesViewPresenter
     private var models: [Episode] = []
+    
+    init(presenter: EpisodesViewPresenter) {
+        self.presenter = presenter
+        super.init(style: .plain)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,7 +26,7 @@ final class EpisodesViewController: UITableViewController {
         view.backgroundColor = .systemBackground
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.identifier)
         presenter.view = self
-        presenter.fetchEpisodes(podcastID: (String(describing: podcast?.id)))
+        presenter.fetchEpisodes()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {

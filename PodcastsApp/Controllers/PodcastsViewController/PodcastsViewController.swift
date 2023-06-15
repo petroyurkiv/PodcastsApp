@@ -10,7 +10,6 @@ import UIKit
 final class PodcastsViewController: UITableViewController {
     let presenter: PodcastsViewPresenter
     private var models: [Podcast] = []
-    private var podcast: Podcast?
     
     init(presenter: PodcastsViewPresenter) {
         self.presenter = presenter
@@ -48,8 +47,7 @@ final class PodcastsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let podcast = models[indexPath.row]
-        let screen = EpisodesViewController()
-        screen.podcast = podcast
+        let screen = EpisodesComposer.build(podcastID: (String(describing: podcast.id)))
         self.navigationController?.pushViewController(screen, animated: true)
     }
 }

@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol GenreViewProtocool: AnyObject {
+protocol GenresViewProtocool: AnyObject {
     func display(_ genres: [Genre])
 }

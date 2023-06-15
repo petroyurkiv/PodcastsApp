@@ -7,8 +7,8 @@
 
 import Foundation
 
-class GenreViewPresenter {
-    weak var view: GenreViewProtocool?
+class GenresViewPresenter {
+    weak var view: GenresViewProtocool?
     
     func fetchGenres() {
         GenresNetworkManager.getGenres { [weak self] result in

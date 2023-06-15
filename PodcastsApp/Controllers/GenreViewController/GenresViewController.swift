@@ -7,19 +7,10 @@
 
 import UIKit
 
-class PodcastComposer {
-     
-    func bulid(genreID: String) -> UIViewController {
-        let presenter = PodcastsViewPresenter(genreID: genreID)
-        let controller = PodcastsViewController(presenter: presenter)
-        return controller
-    }
-}
-
-final class GenreViewController: UITableViewController {
-    let presenter = GenreViewPresenter()
+final class GenresViewController: UITableViewController {
+    var presenter: GenresViewPresenter!
     private var models: [Genre] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = R.string.texts.podcastAppGenreVCTitle()
@@ -46,12 +37,12 @@ final class GenreViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let genre = models[indexPath.row]
-        let screen = PodcastComposer().bulid(genreID: (String(describing: genre.id)))
+        let screen = PodcastsComposer.bulid(genreID: (String(describing: genre.id)))
         self.navigationController?.pushViewController(screen, animated: true)
     }
 }
 
-extension GenreViewController: GenreViewProtocool {
+extension GenresViewController: GenresViewProtocool {
     func display(_ genres: [Genre]) {
         models = genres
         tableView.reloadData()
