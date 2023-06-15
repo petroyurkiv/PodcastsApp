@@ -8,16 +8,25 @@
 import UIKit
 
 final class PodcastsViewController: UITableViewController {
-    var genre: Genre?
+    let presenter: PodcastsViewPresenter
     private var models: [Podcast] = []
-    private var podcast: Podcast?
+    
+    init(presenter: PodcastsViewPresenter) {
+        self.presenter = presenter
+        super.init(style: .plain)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         title = R.string.texts.podcastAppPodcastsVCTitle()
         view.backgroundColor = .systemBackground
         tableView.register(PodcastsTableViewCell.self, forCellReuseIdentifier: PodcastsTableViewCell.identifier)
-        fetchPodcasts()
+        presenter.view = self
+        presenter.fetchPodcasts()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -38,22 +47,14 @@ final class PodcastsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let podcast = models[indexPath.row]
-        goToSecondScreen(podcast: podcast)
-    }
-    
-    private func fetchPodcasts() {
-        guard let genreID = genre?.id else { return }
-        PodcastsNetworkManager.getPodcasts(genreID: String(genreID)) { [weak self] result in
-            self?.models = result
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
-    private func goToSecondScreen(podcast: Podcast) {
-        let screen = EpisodesViewController()
-        screen.podcast = podcast
+        let screen = EpisodesComposer.build(podcastID: (String(describing: podcast.id)))
         self.navigationController?.pushViewController(screen, animated: true)
+    }
+}
+
+extension PodcastsViewController: PodcastsViewProtocool {
+    func display(_ podcasts: [Podcast]) {
+        models = podcasts
+        tableView.reloadData()
     }
 }
