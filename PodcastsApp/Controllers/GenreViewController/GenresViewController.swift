@@ -37,8 +37,8 @@ final class GenresViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let genre = models[indexPath.row]
-        let screen = PodcastsComposer.bulid(genreID: (String(describing: genre.id)))
-        self.navigationController?.pushViewController(screen, animated: true)
+        let router = Router(window: view.window!)
+        router.showPodcastsView(navigationController: navigationController!, genreID: String(describing: genre.id))
     }
 }
 
