@@ -17,10 +17,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions) {
             guard let windowScene = (scene as? UIWindowScene) else { return }
             let window = UIWindow(windowScene: windowScene)
-            let screen = GenresComposer.build()
-            let navigationController = UINavigationController(rootViewController: screen)
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
+            let router = Router(window: window)
+            router.showGenresViewAsRootController()
             self.window = window
         }
     
